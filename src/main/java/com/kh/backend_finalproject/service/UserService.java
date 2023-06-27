@@ -98,7 +98,7 @@ public class UserService {
         return true;
     }
 
-    // 🔐 마이페이지 - 회원의 모든 댓글 가져오기 (댓글 번호, 작성자 닉네임, 댓글 본문, 원문 제목, 작성일)
+    // 🔐 마이페이지 - 회원의 모든 댓글 가져오기 (댓글 번호, 작성자 닉네임, 댓글 본문, 원문 제목, 작성일, 원문 번호)
     public List<UserDto> getAllUserReplies(HttpServletRequest request, UserDetails userDetails) {
         UserTb authUser = authService.validateTokenAndGetUser(request, userDetails);
         Optional<UserTb> user = userRepository.findById(authUser.getId());
@@ -113,6 +113,7 @@ public class UserService {
             userDto.setContent(reply.getContent());
             userDto.setTitle(reply.getPost().getTitle());
             userDto.setWriteDate(reply.getWriteDate());
+            userDto.setPostNum(reply.getPost().getId());
             userDtoList.add(userDto);
         }
         return userDtoList;
